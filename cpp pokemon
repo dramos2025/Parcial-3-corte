@@ -1,0 +1,156 @@
+#include <iostream>  
+#include <string>     
+#include <vector>     
+
+using namespace std;  
+
+// Estructura para representar un poder
+struct Poder {
+    string nombre;
+    int poderAtaque;
+};
+
+// Estructura para representar un Pokémon
+struct Pokemon {
+    string nombre;
+    int vida;
+    vector<Poder> poderes;
+
+// Función para mostrar la información del Pokémon
+    void mostrarInfo() {
+        cout << "Nombre: " << nombre << endl;
+        cout << "Vida: " << vida << endl;
+        cout << "Poderes:\n";
+        for (int i = 0; i < poderes.size(); ++i) {
+            cout << i + 1 << ". " << poderes[i].nombre << " (Ataque: " << poderes[i].poderAtaque << ")\n";
+        }
+        cout << endl;
+    }
+
+// Permite al jugador elegir uno de los poderes
+    Poder elegirPoderJugador() {
+        int eleccion;
+        do {
+            cout << "Elige un poder (1-" << poderes.size() << "): ";
+            cin >> eleccion;
+        } while (eleccion < 1 || eleccion > poderes.size());
+
+        return poderes[eleccion - 1];
+    }
+
+// Devuelve un poder aleatorio para el rival
+    Poder obtenerPoderAleatorio() {
+        int indice = rand() % poderes.size();
+        return poderes[indice];
+    }
+};
+
+// Función para simular una batalla por turnos entre dos jugadores
+void batalla(Pokemon& jugador, Pokemon& rival) {
+    cout << "\n--- ¡Comienza la batalla! ---\n";
+
+// La batalla continúa mientras ambos tengan vida
+    while (jugador.vida > 0 && rival.vida > 0) {
+        cout << "\nTu turno:\n";
+        jugador.mostrarInfo();
+
+// Jugador elige un poder
+        Poder ataqueJugador = jugador.elegirPoderJugador();
+        cout << jugador.nombre << " usó " << ataqueJugador.nombre 
+             << " causando " << ataqueJugador.poderAtaque << " de daño.\n";
+        rival.vida -= ataqueJugador.poderAtaque;
+
+// Verificamos si el rival ya perdió
+        if (rival.vida <= 0) break;
+
+// Turno del rival (elige poder aleatorio)
+        cout << "\nTurno del rival:\n";
+        Poder ataqueRival = rival.obtenerPoderAleatorio();
+        cout << rival.nombre << " usó " << ataqueRival.nombre 
+             << " causando " << ataqueRival.poderAtaque << " de daño.\n";
+        jugador.vida -= ataqueRival.poderAtaque;
+
+        // Mostramos vida restante
+        cout << "\nVida restante:\n";
+        cout << jugador.nombre << ": " << jugador.vida << " HP\n";
+        cout << rival.nombre << ": " << rival.vida << " HP\n";
+    }
+
+// Mostramos el resultado de la batalla
+    cout << "\n--- Resultado de la batalla ---\n";
+    if (jugador.vida <= 0 && rival.vida <= 0) {
+        cout << "¡Empate!\n";
+    } else if (jugador.vida > 0) {
+        cout << "¡" << jugador.nombre << " gana la batalla!\n";
+    } else {
+        cout << "¡" << rival.nombre << " gana la batalla!\n";
+    }
+}
+
+int main() {
+    srand(time(0));  // Inicializamos el poder  aleatoria
+
+// Declaramos poderes para cada Pokémon
+    vector<Poder> poderesPikachu = {
+        {"Impactrueno", 20},
+        {"Ataque Rápido", 15},
+        {"Rayo", 25}
+    };
+
+    vector<Poder> poderesCharmander = {
+        {"Ascuas", 18},
+        {"Lanzallamas", 25},
+        {"Garra Dragón", 20}
+    };
+
+    vector<Poder> poderesSquirtle = {
+        {"Burbuja", 15},
+        {"Pistola Agua", 20},
+        {"Hidrobomba", 30}
+    };
+
+// Creamos las instancias de cada Pokémon con vida y poderes
+    Pokemon pikachu = {"Pikachu", 100, poderesPikachu};
+    Pokemon charmander = {"Charmander", 100, poderesCharmander};
+    Pokemon squirtle = {"Squirtle", 100, poderesSquirtle};
+
+// Mostramos los Pokémon disponibles
+    cout << "Bienvenido al Mundo Pokémon!\n";
+    cout << "Estos son los Pokémon disponibles:\n";
+    cout << "1. Pikachu\n";
+    cout << "2. Charmander\n";
+    cout << "3. Squirtle\n\n";
+
+// Variables para guardar la elección del jugador y del rival
+    int opcionJugador, opcionRival;
+
+// Menú para que el jugador escoja su Pokémon
+    cout << "Escoge tu Pokémon:\n";
+    cin >> opcionJugador;
+
+    Pokemon jugador;
+    if (opcionJugador == 1) jugador = pikachu;
+    else if (opcionJugador == 2) jugador = charmander;
+    else jugador = squirtle;
+
+// Menú para que el rival escoja su Pokémon
+    cout << "\nEscoge el Pokémon del rival:\n";
+    cin >> opcionRival;
+
+    Pokemon rival;
+    if (opcionRival == 1) rival = pikachu;
+    else if (opcionRival == 2) rival = charmander;
+    else rival = squirtle;
+
+// Mostramos las elecciones finales
+    cout << "\nHas elegido a:\n";
+    jugador.mostrarInfo();
+
+    cout << "El rival ha elegido a:\n";
+    rival.mostrarInfo();
+
+// Inicia la batalla Pokémon
+    batalla(jugador, rival);
+
+    return 0; 
+}
