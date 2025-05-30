@@ -1,4 +1,4 @@
- Proyecto: Simulador de Batalla Pokémon en C++
+----------------------------------------------------------------------Proyecto: Simulador de Batalla Pokémon en C++------------------------------------------------------------------------------------           
 
 Descripción
 Este programa es un simulador por consola de batallas entre Pokémon, en el que el jugador puede:
@@ -51,3 +51,77 @@ Charmander usó Lanzallamas causando 25 de daño.
 
 --- Resultado de la batalla ---
     ¡Pikachu gana la batalla!
+
+-----------------------------------------------------------------Sistema de Parqueadero en Python----------------------------------------------------------------------------------------------------------------
+Descripción:
+Este proyecto es un sistema de gestión de parqueadero en Python, diseñado para simular la administración de un parqueadero con las siguientes características:
+
+Mapa visual del parqueadero de 8x8, donde se representan:
+
+[E] → Entrada
+
+[S] → Salida
+
+[ ] → Vía
+
+[P] → Parqueadero disponible
+
+[X] → Espacio ocupado
+
+ Registro en tiempo real de los espacios ocupados y disponibles.
+
+ Registro de vehículos al ingresar: placa y hora de entrada.
+
+ La tarifa al salir según el tiempo de permanencia.
+
+ Menú interactivo para que el usurio escoga si quiere ver el mapa del parquedero o ingresar un vehiculo o salida.
+
+Ejemplo de la salida del codigo del mapa:
+[E] [ ] [ ] [ ] [ ] [ ] [ ] [S]
+[ ] [P] [P] [P] [P] [P] [P] [ ]
+[ ] [P] [X] [P] [P] [P] [P] [ ]
+[ ] [P] [P] [P] [P] [P] [P] [ ]
+[ ] [P] [P] [P] [P] [P] [P] [ ]
+[ ] [P] [P] [P] [P] [P] [P] [ ]
+[ ] [P] [P] [P] [P] [P] [P] [ ]
+[ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+
+Ejemplo de la salida del codigo del menu:
+--- MENÚ PARQUEADERO ---
+1. Mostrar Mapa del Parqueadero
+2. Mostrar Disponibilidad
+3. Ingresar Vehículo
+4. Retirar Vehículo
+5. Salir
+
+Ejemplo de la salida del codigo cuando se retira un carro:
+      Ingrese la placa del carro que sale: ABC123
+      El vehículo estuvo 1 hora(s). Total a pagar: $3000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
