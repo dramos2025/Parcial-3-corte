@@ -1,0 +1,53 @@
+ Proyecto: Simulador de Batalla Pokémon en C++
+
+Descripción
+Este programa es un simulador por consola de batallas entre Pokémon, en el que el jugador puede:
+
+Elegir uno de tres Pokémon iniciales (Pikachu, Charmander o Squirtle).
+
+Seleccionar ataques en cada turno.
+
+Pelear contra un rival que elige su Pokémon y sus ataques de forma automática (aleatoria).
+
+Ver el resultado final de la batalla basado en la vida restante de los pokemones.
+
+Un ejemplo de la salida del codigo:
+        Bienvenido al Mundo Pokémon!
+    Estos son los Pokémon disponibles:
+1. Pikachu
+2. Charmander
+3. Squirtle
+
+Escoge tu Pokémon:
+1
+
+Escoge el Pokémon del rival:
+ 2
+
+Has elegido a:
+Nombre: Pikachu
+Vida: 100
+Poderes:
+1. Impactrueno (Ataque: 20)
+2. Ataque Rápido (Ataque: 15)
+3. Rayo (Ataque: 25)
+
+El rival ha elegido a:
+Nombre: Charmander
+Vida: 100
+Poderes:
+1. Ascuas (Ataque: 18)
+2. Lanzallamas (Ataque: 25)
+3. Garra Dragón (Ataque: 20)
+
+--- ¡Comienza la batalla! ---
+
+Tu turno:
+Elige un poder (1-3): 3
+Pikachu usó Rayo causando 25 de daño.
+
+Turno del rival:
+Charmander usó Lanzallamas causando 25 de daño.
+
+--- Resultado de la batalla ---
+    ¡Pikachu gana la batalla!
