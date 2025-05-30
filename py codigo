@@ -1,0 +1,123 @@
+import time
+
+# Dimensiones del parqueadero tipo lista 8*8
+FILAS = 8
+COLUMNAS = 8
+
+# Inicializamos el mapa del parqueadero en lista
+# [E] = Entrada,  [S] = Salida,  [ ] = Vía,  [P] = Parqueadero vacío,  [X] = Ocupado
+parqueadero = [
+    ["[E]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[S]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[P]", "[P]", "[P]", "[P]", "[P]", "[P]", "[ ]"],
+    ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]
+]
+
+#  registrar vehículos por placa y hora de entrada
+vehiculos = {}
+
+# Tarifa fija por hora
+tarifa_por_hora = 3000
+
+
+# Función para mostrar el mapa actual del parqueadero
+def mostrar_mapa():
+    print("\n--- Mapa del Parqueadero ---")
+    for fila in parqueadero:
+        print(" ".join(fila))
+    print()
+
+
+# Función para mostrar la cantidad de espacios disponibles y ocupados en el parqueadero
+def disponibilidad():
+    total = sum(fila.count("[P]") for fila in parqueadero)
+    ocupados = sum(fila.count("[X]") for fila in parqueadero)
+    print(f"\nEspacios disponibles: {total}")
+    print(f"Espacios ocupados: {ocupados}\n")
+
+
+# Función para registrar la entrada de un vehículo al primer espacio disponible
+def registrar_entrada():
+    if not hay_espacio_disponible():
+        print("El parqueadero está lleno.\n")
+        return
+    
+    placa = input("Ingrese la placa del carro: ").upper()
+    if placa in vehiculos:
+        print("Este vehículo ya está dentro del parqueadero.\n")
+        return
+
+# Buscar el primer parquedero disponible [P] y parquear el carro
+    for i in range(FILAS):
+        for j in range(COLUMNAS):
+            if parqueadero[i][j] == "[P]":
+                parqueadero[i][j] = "[X]"
+                hora_entrada = time.time()
+                vehiculos[placa] = (i, j, hora_entrada)
+                print(f"Vehículo {placa} parqueado en ({i},{j})\n")
+                mostrar_mapa()
+                return
+    print("No se encontró espacio disponible.")
+
+
+# Función para registrar la salida de un vehículo, calcular el tiempo y valor a pagar del carro
+def registrar_salida():
+    placa = input("Ingrese la placa del carro que sale: ").upper()
+    if placa not in vehiculos:
+        print("Este vehículo no está registrado.\n")
+        return
+
+    fila, columna, hora_entrada = vehiculos[placa]
+    hora_salida = time.time()
+    tiempo_total = (hora_salida - hora_entrada) / 3600  
+    tiempo_total = max(1, int(tiempo_total))  
+
+    tarifa = tarifa_por_hora * tiempo_total
+    print(f"El vehículo estuvo {tiempo_total} hora(s). Total a pagar: ${tarifa}\n")
+
+    parqueadero[fila][columna] = "[P]"
+    del vehiculos[placa]
+    mostrar_mapa()
+
+
+# Función para verificar si aún hay espacio [P] disponibles en el parqueadero
+def hay_espacio_disponible():
+    for fila in parqueadero:
+        if "[P]" in fila:
+            return True
+    return False
+
+
+# Función para mostrar el menú principal y permitir al usuario elegir una opción
+def menu():
+    while True:
+        print("\n--- MENÚ PARQUEADERO ---")
+        print("1. Mostrar Mapa del Parqueadero")
+        print("2. Mostrar Disponibilidad")
+        print("3. Ingresar Vehículo")
+        print("4. Retirar Vehículo")
+        print("5. Salir\n")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            mostrar_mapa()
+        elif opcion == "2":
+            disponibilidad()
+        elif opcion == "3":
+            registrar_entrada()
+        elif opcion == "4":
+            registrar_salida()
+        elif opcion == "5":
+            print("Saliendo del sistema.\n")
+            break
+        else:
+            print("Opción inválida, intente de nuevo.\n")
+
+
+# arracar el programa
+menu()
